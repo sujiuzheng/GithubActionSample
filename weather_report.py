@@ -114,8 +114,34 @@ def send_weather(access_token, weather):
             }
         }
     }
+    body1 = {
+        "touser": openId1.strip(),
+        "template_id": weather_template_id.strip(),
+        "url": "https://weixin.qq.com",
+        "data": {
+            "date": {
+                "value": today_str
+            },
+            "region": {
+                "value": weather[0]
+            },
+            "weather": {
+                "value": weather[2]
+            },
+            "temp": {
+                "value": weather[1]
+            },
+            "wind_dir": {
+                "value": weather[3]
+            },
+            "today_note": {
+                "value": get_daily_love()
+            }
+        }
+    }
     url = 'https://api.weixin.qq.com/cgi-bin/message/template/send?access_token={}'.format(access_token)
     print(requests.post(url, json.dumps(body)).text)
+    print(requests.post(url, json.dumps(body1)).text)
 
 
 
